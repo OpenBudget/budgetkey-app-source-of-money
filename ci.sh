@@ -6,9 +6,9 @@ DEPLOY_YAML_UPDATE_FILE=values.auto-updated.yaml
 DEPLOY_GIT_EMAIL=budgetkey-deployer@null.void
 DEPLOY_GIT_USER=budgetkey-deployer
 
-DEPLOY_COMMIT_MESSAGE="automatic update of source-of-money-app-main-page"
-DEPLOY_VALUES_CHART_NAME=source-of-money-app-main-page
-DOCKER_IMAGE=inbararan/source-of-money
+DEPLOY_COMMIT_MESSAGE="automatic update of budgetkey-app-source-of-money"
+DEPLOY_VALUES_CHART_NAME=app-source-of-money
+DOCKER_IMAGE=budgetkey/budgetkey-app-source-of-money
 
 echo $DOCKER_USER
 
