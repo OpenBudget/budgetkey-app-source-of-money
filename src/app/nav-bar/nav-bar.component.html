@@ -1,24 +1,15 @@
 <div class="nav-bar-container">
   <div class="nav-bar">
-    <h2
-      class="nav-option"
-      [ngClass]="{ 'selected-nav-option': currentlySelected == 'left' }"
-      (click)="changeCurrentlySelected('left')"
-    >
+    <h2 class="nav-option" [ngClass]="{ 'selected-nav-option': currentlySelected == 'left' }"
+      (click)="changeCurrentlySelected('left')">
       {{ leftCaption }}
     </h2>
-    <h2
-      class="nav-option"
-      [ngClass]="{ 'selected-nav-option': currentlySelected == 'middle' }"
-      (click)="changeCurrentlySelected('middle')"
-    >
+    <h2 class="nav-option middle-nav-bar" [ngClass]="{ 'selected-nav-option': currentlySelected == 'middle' }"
+      (click)="changeCurrentlySelected('middle')">
       {{ middleCaption }}
     </h2>
-    <h2
-      class="nav-option"
-      [ngClass]="{ 'selected-nav-option': currentlySelected == 'right' }"
-      (click)="changeCurrentlySelected('right')"
-    >
+    <h2 class="nav-option" [ngClass]="{ 'selected-nav-option': currentlySelected == 'right' }"
+      (click)="changeCurrentlySelected('right')">
       {{ rightCaption }}
     </h2>
   </div>
@@ -28,11 +19,10 @@
   </div>
 
   <div class="page" *ngIf="currentlySelected == 'middle'">
-    <middle-nav-bar-page [fetchedData]="fetchedData"></middle-nav-bar-page>
+    <middle-nav-bar-page [giraonSum]="giraonSum" [fetchedData]="fetchedData"></middle-nav-bar-page>
   </div>
 
   <div class="page" *ngIf="currentlySelected == 'right'">
     <right-nav-bar-page></right-nav-bar-page>
   </div>
 </div>
-

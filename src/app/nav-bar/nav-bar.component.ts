@@ -7,15 +7,14 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 })
 export class NavBarComponent {
   leftCaption: string = "משחק המסים";
-  middleCaption: string = "מיסי הכנסה אל מול מיסי הוצאה";
+  middleCaption: string = "נושאים להעמקה";
   rightCaption: string = "פילוחים נוספים";
-
 
 
   currentlySelected: string = "middle";
 
   @Input() fetchedData: any;
-
+  @Input() giraonSum:number;
 
   constructor() {
 
