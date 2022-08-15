@@ -141,25 +141,23 @@
 
 .extra-links {
   display: flex;
-  justify-content: space-around;
-  flex-flow: row wrap;
-  gap: 1rem;
+  align-items: stretch;
+  flex-flow: column;
+  width: 100%;
+  padding: 0 3rem;
 
   div {
     display: flex;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    width: 25vw;
     font-size: 1.8rem;
     flex: 1 0 auto;
     min-width: 200px;
     &:not(:last-child) {
-      @media screen and (min-width: 600px) {
-        border-left: solid 2px #ff5a5f;
-      }
+      border-bottom: solid 2px #ff5a5f;
     }
-    padding: 1rem;
+    padding: 3rem 0;
   }
 
   div a {
