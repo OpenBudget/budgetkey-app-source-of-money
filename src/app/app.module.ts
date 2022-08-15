@@ -32,7 +32,7 @@ declare const BUDGETKEY_LANG: any;
 
 export const LANG = typeof (BUDGETKEY_LANG) === 'undefined' ? 'he' : BUDGETKEY_LANG;
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, 'assets/i18n/');
 }
 
 const providers: any[] = [
