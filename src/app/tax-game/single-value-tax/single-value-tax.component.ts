@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FetchingService } from 'src/app/fetching.service';
+import { FetchingService, MANUAL_DATA } from 'src/app/fetching.service';
 import { UtilsService } from '../../utils.service';
 
 @Component({
@@ -13,13 +13,13 @@ export class SingleValueTaxComponent implements OnInit {
   @Output() onChange = new EventEmitter();
   @Output() onLoad = new EventEmitter();
   new_rate: number;
-  latest_year: number = 2020;
   demo_value: number;
   enough_to_balance: boolean = true;
   taxes: any = {
     delek: {
-      code: '0000180101',
-      current_rate: 3.05585,
+      code: MANUAL_DATA.taxRates.delek.code,
+      current_rate: MANUAL_DATA.taxRates.delek.rate,
+      rate_year: MANUAL_DATA.taxRates.delek.year,
       units: "שקלים לליטר",
       demo_text: " לדוגמה ניקח מיכל של",
       demo_placeholder: "40",
@@ -27,12 +27,12 @@ export class SingleValueTaxComponent implements OnInit {
       demo_result_text: "תשלום עבור מילוי של מיכל זה ",
       normalizer: 1,
       description: "הוא מס בסכום קבוע עבור כל ליטר ומטרתו לצמצם את צריכת הדלק בישראל.",
-      url: "https://next.obudget.org/i/budget/0000180101/2019?li=0&theme=budgetkey",
       title: "מס דלק"
     },
     maam: {
-      code: '0000140201',
-      current_rate: 17,
+      code: MANUAL_DATA.taxRates.maam.code,
+      current_rate: MANUAL_DATA.taxRates.maam.rate,
+      rate_year: MANUAL_DATA.taxRates.maam.year,
       units: "אחוזים",
       demo_text: " לדוגמה ניקח מוצר שמחירו",
       demo_placeholder: "3000",
@@ -40,12 +40,12 @@ export class SingleValueTaxComponent implements OnInit {
       demo_result_text: "תשלום עבור מוצר זה",
       normalizer: 100,
       description: '(מס ערך מוסף) הוא מס המוטל על כל קניה. סכום המע"מ מחושב בשיעור קבוע ממחיר הרכישה.',
-      url: "https://next.obudget.org/i/budget/0000140201/2019?li=0&theme=budgetkey",
       title: 'מע"מ'
     },
     tabak: {
-      code: '00001501',
-      current_rate: 1097.24,
+      code: MANUAL_DATA.taxRates.tabak.code,
+      current_rate: MANUAL_DATA.taxRates.tabak.rate,
+      rate_year: MANUAL_DATA.taxRates.tabak.year,
       units: 'ש"ח לק"ג',
       demo_text: " לדוגמה טבק לגלגול במשקל",
       demo_placeholder: "50",
@@ -53,7 +53,6 @@ export class SingleValueTaxComponent implements OnInit {
       demo_result_text: "תשלום עבור הטבק",
       normalizer: 1000,
       description: "מוטל על מוצרי טבק בסכום קבוע לקילוגרם ומטרתו לצמצם צריכה של מוצרים כמו סיגריות.",
-      url: "https://next.obudget.org/i/budget/00001501/2016?li=1&theme=budgetkey",
       title: "מס טבק"
     }
   }
@@ -85,7 +84,7 @@ export class SingleValueTaxComponent implements OnInit {
   async getDiff() {
     var data = await this.fetching.get(this.taxes[this.tax_type].code);
     var new_value =
-      (data.net_executed /
+      (data.amount /
         this.taxes[this.tax_type].current_rate) *
       this.new_rate;
 
@@ -97,7 +96,7 @@ export class SingleValueTaxComponent implements OnInit {
     }
     else {
       this.onChange.emit({
-        value: new_value - (await this.fetching.get(this.taxes[this.tax_type].code)).net_executed,
+        value: new_value - (await this.fetching.get(this.taxes[this.tax_type].code)).amount,
         rate: this.new_rate,
       });
     }
@@ -105,13 +104,13 @@ export class SingleValueTaxComponent implements OnInit {
 
   async getTotal() {
     this.onLoad.emit({
-      total: (await this.fetching.get(this.taxes[this.tax_type].code)).net_executed,
+      total: (await this.fetching.get(this.taxes[this.tax_type].code)).amount,
     });
   }
 
   async balanceOut(){
     var tax = await this.fetching.get(this.taxes[this.tax_type].code);
-    let balance_rate = (this.taxes[this.tax_type].current_rate / tax.net_executed) * (tax.net_executed - this.total_diff);
+    let balance_rate = (this.taxes[this.tax_type].current_rate / tax.amount) * (tax.amount - this.total_diff);
 
     if(balance_rate < 0){
       this.enough_to_balance = false;

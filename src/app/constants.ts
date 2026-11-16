@@ -1,5 +1,3 @@
-import { InjectionToken } from '@angular/core';
-
 export const VALUE_SCALE = {
   מיליארד: 1000000000,
   מיליון: 1000000,
@@ -14,5 +12,3 @@ export const CATEGORIES_THEMES = {
   'אגרות': 'violet',
   'הכנסות אחרות': 'olive',
 };
-
-export const BUBBLES = new InjectionToken('bubbles');

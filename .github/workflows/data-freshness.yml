@@ -1,0 +1,44 @@
+name: Data freshness
+
+# Checks monthly that the hand-maintained data (src/app/manual-data.json) matches the latest budget year,
+# and opens an issue (or comments on the open one) when something needs updating.
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Check data freshness
+      id: check
+      run: |
+        set +e
+        node scripts/check-data-freshness.js > report.md
+        echo "status=$?" >> "$GITHUB_OUTPUT"
+        cat report.md
+    - name: Report stale data
+      if: steps.check.outputs.status == '1'
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        TITLE="Data needs updating"
+        ISSUE=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number --jq '.[0].number')
+        if [ -n "$ISSUE" ]; then
+          gh issue comment "$ISSUE" --body-file report.md
+        else
+          gh issue create --title "$TITLE" --body-file report.md
+        fi
+    - name: Fail if the check could not run
+      if: steps.check.outputs.status != '0' && steps.check.outputs.status != '1'
+      run: exit 1

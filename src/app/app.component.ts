@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, HostListener } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { DEFICIT_FUNDING, FetchingService } from './fetching.service';
 
 const _TRANSLATIONS = window['TRANSLATIONS'] || {};
 
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
   public data: any;
   public giraon: any;
 
-  constructor(public translate: TranslateService) {
+  constructor(public translate: TranslateService, private fetching: FetchingService) {
     this.newGetData();
     translate.addLangs(['he', 'ar']);
     translate.setDefaultLang('he');
@@ -43,31 +44,23 @@ export class AppComponent implements OnInit {
   }
 
   async newGetData() {
-    //fetches data from url
-    var raw = await fetch('https://next.obudget.org/api/query?query=SELECT%20year,%20func_cls_title_2-%3E%3E0%20as%20func_title,%20title,%20sum(net_revised)%20AS%20revised,%20sum(net_allocated)%20AS%20allocated,%20sum(net_executed)%20AS%20executed,%20code%20AS%20code%20FROM%20budget%20WHERE%20depth%20=%202%20and%20code%20like%20%270000%%%27%20group%20by%201,%202,%203,%207%20order%20by%202,%201');
-    var data = await raw.json();
-    data = data.rows;
+    // income items of the latest budget year
+    this.year = await this.fetching.getYear();
+    var data = await this.fetching.getIncomeItems();
     this.data = data;
-
-    //gets the most current year
-    var lastTitle = data[0].func_title;
-    for (var item of data) {
-      if (item.func_title != lastTitle) break;
-      this.year = Math.max(this.year, item.year);
-    }
 
     //creates an ordered diconary from data
     var minimizedData = {};
     this.totalAmount = 0;
     for (var item of data) {
-      if (item.year != this.year || item.allocated == 0) continue;
+      if (!item.allocated) continue;
 
       if (!minimizedData[item.func_title])
         minimizedData[item.func_title] = { name: item.func_title, scale: 1, amount: 0, values: {} };
 
       minimizedData[item.func_title].amount += item.allocated;
       minimizedData[item.func_title].values[item.title] = { amount: item.allocated, href: `https://next.obudget.org/i/budget/${item.code}/${item.year}` };
-      if (item.func_title != "הכנסות למימון גירעון")
+      if (item.func_title != DEFICIT_FUNDING)
         this.totalAmount += item.allocated;
     }
 
@@ -106,7 +99,7 @@ export class AppComponent implements OnInit {
     }
 
     for (let i = 0; i < minimizedArray.length; i++) {
-      if (minimizedArray[i].name == "הכנסות למימון גירעון") {
+      if (minimizedArray[i].name == DEFICIT_FUNDING) {
         this.giraon = minimizedArray[i];
         this.giraon.percent = (this.giraon.amount / (this.totalAmount + this.giraon.amount)) * 100;
         minimizedArray.splice(i, 1);

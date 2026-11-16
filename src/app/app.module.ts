@@ -11,11 +11,6 @@ import { BudgetkeyNg2AuthModule, getAuthServiceConfigProvider } from 'budgetkey-
 import { MainPageSummaryComponent } from './main-page-summary/main-page-summary.component';
 import { CategoryVisualizationComponent } from './category-visualization/category-visualization.component';
 import { CategoryVisualizationInfoPopupComponent } from './category-visualization-info-popup/category-visualization-info-popup.component';
-import { HeroComponent } from './hero/hero.component';
-import { MushonkeyModule } from 'mushonkey';
-import { BUBBLES } from './constants';
-import { bubbles } from './bubbles'; //added import
-import { SpeechBubbleComponent } from './speech-bubble/speech-bubble.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ChartComponent } from './chart/chart.component';
 import { MiddleNavBarPageComponent } from './middle-nav-bar-page/middle-nav-bar-page.component';
@@ -28,7 +23,6 @@ import { JokerTaxComponent } from './tax-game/joker-tax/joker-tax.component';
 declare let BUDGETKEY_NG2_COMPONENTS_THEME: any;
 declare const BUDGETKEY_THEME_ID: any;
 declare const BUDGETKEY_LANG: any;
-//deleteted - declate const bubbles: any
 
 export const LANG = typeof (BUDGETKEY_LANG) === 'undefined' ? 'he' : BUDGETKEY_LANG;
 export function HttpLoaderFactory(http: HttpClient) {
@@ -39,7 +33,6 @@ const providers: any[] = [
   { provide: THEME_ID_TOKEN, useValue: typeof (BUDGETKEY_THEME_ID) === 'undefined' ? null : BUDGETKEY_THEME_ID },
   { provide: LANG_TOKEN, useValue: LANG },
   getAuthServiceConfigProvider('https://next.obudget.org'),
-  { provide: BUBBLES, useValue: bubbles },
 ];
 if (typeof (BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
   BUDGETKEY_NG2_COMPONENTS_THEME = Object.assign({}, BUDGETKEY_NG2_COMPONENTS_THEME);
@@ -55,8 +48,6 @@ if (typeof (BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     MainPageSummaryComponent,
     CategoryVisualizationComponent,
     CategoryVisualizationInfoPopupComponent,
-    HeroComponent,
-    SpeechBubbleComponent,
     NavBarComponent,
     ChartComponent,
     MiddleNavBarPageComponent,
@@ -70,7 +61,6 @@ if (typeof (BUDGETKEY_NG2_COMPONENTS_THEME) !== 'undefined') {
     BrowserModule,
     BudgetKeyCommonModule,
     BudgetkeyNg2AuthModule,
-    MushonkeyModule,
     FormsModule,
     HttpClientModule,
     TranslateModule.forRoot({

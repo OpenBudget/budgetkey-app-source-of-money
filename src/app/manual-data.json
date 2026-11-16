@@ -1,0 +1,46 @@
+{
+  "_comment": "Facts that don't come from the BudgetKey API and must be updated by hand. Every entry has the year it is correct for and its source. `npm run check-data` (also run monthly by .github/workflows/data-freshness.yml) reports any entry older than the latest budget year.",
+  "taxRates": {
+    "delek": {
+      "code": "0000180101",
+      "rate": 3.60433,
+      "year": 2026,
+      "source": "רשות המסים - בלו על בנזין, 3,604.33 ש\"ח לאלף ליטר נכון ל-1.1.2026: https://www.gov.il/BlobFolder/generalpage/heshavon31819/he/purchase-tax-excise_excise-rates-on-carbon-fuel-in-nis.pdf"
+    },
+    "maam": {
+      "code": "0000140201",
+      "rate": 18,
+      "year": 2026,
+      "source": "חוק מס ערך מוסף - שיעור המע\"מ 18% מ-1.1.2025"
+    },
+    "tabak": {
+      "code": "00001501",
+      "rate": 1406.52,
+      "year": 2026,
+      "source": "מס הקנייה המינימלי על טבק לגלגול (270% + 793.26 ש\"ח לק\"ג, ולא פחות מ-1,406.52 ש\"ח לק\"ג) לפי צו תעריף המכס והפטורים ומס קניה על טובין (תיקון מס' 5 והוראת שעה מס' 9), התשפ\"ד-2024, כפי שמצוטט בדוח התקופתי של גלוברנדס מ-26.3.2026: https://mayafiles.tase.co.il/rpdf/1731001-1732000/P1731687-00.pdf"
+    }
+  },
+  "incomeTaxBrackets": {
+    "year": 2026,
+    "source": "רשות המסים - לוח ניכויים לשנת 2026 (אחרי ריווח המדרגות בחוק ההתייעלות הכלכלית 2026), כולל מס יסף 3% מעל 60,130 ש\"ח: https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf",
+    "brackets": [
+      { "upTo": 7010, "rate": 10 },
+      { "upTo": 10060, "rate": 14 },
+      { "upTo": 19000, "rate": 20 },
+      { "upTo": 25100, "rate": 31 },
+      { "upTo": 46690, "rate": 35 },
+      { "upTo": 60130, "rate": 47 },
+      { "upTo": null, "rate": 50 }
+    ]
+  },
+  "industryData": {
+    "year": 2020,
+    "file": "src/app/industryData.json",
+    "source": "רשות המסים - הכנסות ממסים לפי ענפי משק"
+  },
+  "mapData": {
+    "year": 2020,
+    "file": "src/app/mapData.json",
+    "source": "רשות המסים - מס הכנסה משכירים לפי יישוב (שדה income), גבולות רשויות מ-OpenStreetMap"
+  }
+}

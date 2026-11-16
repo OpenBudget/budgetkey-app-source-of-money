@@ -16,7 +16,7 @@ interface Tax {
 })
 export class TaxGameComponent implements OnInit {
   public totalIncome: number = 0;
-  public year: number = 2020;
+  public year: number = null;
 
   lastDiff: number = 0;
   taxes: any = {
@@ -58,12 +58,8 @@ export class TaxGameComponent implements OnInit {
   ngOnInit() {}
 
   async getData() {
-    // var tax_code = '0000';
-    // var data = await this.fetching.get(tax_code);
-    // this.totalIncome = data.net_executed;
-
-    var data = await this.fetching.getTotalIncome();
-    this.totalIncome = data;
+    this.year = await this.fetching.getYear();
+    this.totalIncome = await this.fetching.getTotalIncome();
   }
 
   public changeTax(evt, tax) {

@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "watch": "ng build source-of-money-app-main-page --watch",
     "dist-serve": "./download_themes.sh && npm run watch & npm start",
-    "fetch-data": "node src/app/services/data/bubbles.js"
+    "check-data": "node scripts/check-data-freshness.js"
   },
   "private": true,
   "dependencies": {
