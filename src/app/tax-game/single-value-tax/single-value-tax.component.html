@@ -2,6 +2,7 @@
   <p>
     שיעור המס הנוכחי: {{ taxes[getTax()].current_rate }}
     {{ taxes[getTax()].units }}
+    <small>(נכון לשנת {{ taxes[getTax()].rate_year }})</small>
   </p>
   <input
     [(ngModel)]="new_rate"

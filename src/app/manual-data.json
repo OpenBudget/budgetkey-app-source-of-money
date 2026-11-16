@@ -1,0 +1,46 @@
+{
+  "_comment": "Facts that don't come from the BudgetKey API and must be updated by hand. Every entry has the year it is correct for and its source. `npm run check-data` (also run monthly by .github/workflows/data-freshness.yml) reports any entry older than the latest budget year.",
+  "taxRates": {
+    "delek": {
+      "code": "0000180101",
+      "rate": 3.05585,
+      "year": 2020,
+      "source": "רשות המסים - שיעורי הבלו על דלקים"
+    },
+    "maam": {
+      "code": "0000140201",
+      "rate": 18,
+      "year": 2026,
+      "source": "חוק מס ערך מוסף - שיעור המע\"מ 18% מ-1.1.2025"
+    },
+    "tabak": {
+      "code": "00001501",
+      "rate": 1097.24,
+      "year": 2020,
+      "source": "רשות המסים - צו מס קנייה (טבק)"
+    }
+  },
+  "incomeTaxBrackets": {
+    "year": 2025,
+    "source": "רשות המסים - מדרגות מס הכנסה חודשיות על הכנסה מיגיעה אישית",
+    "brackets": [
+      { "upTo": 7010, "rate": 10 },
+      { "upTo": 10060, "rate": 14 },
+      { "upTo": 16150, "rate": 20 },
+      { "upTo": 22440, "rate": 31 },
+      { "upTo": 46690, "rate": 35 },
+      { "upTo": 60130, "rate": 47 },
+      { "upTo": null, "rate": 50 }
+    ]
+  },
+  "industryData": {
+    "year": 2020,
+    "file": "src/app/industryData.json",
+    "source": "רשות המסים - הכנסות ממסים לפי ענפי משק"
+  },
+  "mapData": {
+    "year": 2020,
+    "file": "src/app/mapData.json",
+    "source": "רשות המסים - מס הכנסה משכירים לפי יישוב (שדה income), גבולות רשויות מ-OpenStreetMap"
+  }
+}

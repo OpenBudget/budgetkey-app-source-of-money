@@ -77,7 +77,7 @@ export class JokerTaxComponent implements OnInit {
   }
 
   handleRateChange(index: number) {
-    this.diffs[index] = this.chosen_taxes[index].net_executed * this.new_rates[index]/100 - this.chosen_taxes[index].net_executed;
+    this.diffs[index] = this.chosen_taxes[index].amount * this.new_rates[index]/100 - this.chosen_taxes[index].amount;
 
     this.totalDiff();
   }
@@ -86,7 +86,7 @@ export class JokerTaxComponent implements OnInit {
     let total_diff = 0;
     for(let i=0; i<this.chosen_taxes.length; i++) {
       if(this.new_rates[i] != null){
-        total_diff += this.chosen_taxes[i].net_executed*this.new_rates[i]/100 - this.chosen_taxes[i].net_executed;
+        total_diff += this.chosen_taxes[i].amount*this.new_rates[i]/100 - this.chosen_taxes[i].amount;
       }
     }
 
@@ -106,7 +106,7 @@ export class JokerTaxComponent implements OnInit {
   async getTotal() {
     let sum = 0;
     for(let i=0; i<this.chosen_taxes.length; i++){
-      sum += this.chosen_taxes[i].net_executed;
+      sum += this.chosen_taxes[i].amount;
     }
     this.onLoad.emit({
       total: sum,

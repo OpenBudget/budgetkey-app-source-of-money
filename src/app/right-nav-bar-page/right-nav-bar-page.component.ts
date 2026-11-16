@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as industryData from '../industryData.json';
 import { UtilsService } from '../utils.service';
+import { MANUAL_DATA } from '../fetching.service';
 
 @Component({
   selector: 'right-nav-bar-page',
@@ -9,6 +10,8 @@ import { UtilsService } from '../utils.service';
 })
 export class RightNavBarPageComponent implements OnInit {
   industryData: any = industryData.data;
+  industryYear: number = MANUAL_DATA.industryData.year;
+  mapYear: number = MANUAL_DATA.mapData.year;
 
   constructor(private utils: UtilsService) { }
 

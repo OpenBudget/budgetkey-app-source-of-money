@@ -1,4 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MANUAL_DATA } from '../fetching.service';
+
+function formatNumber(value: number) {
+  return value.toLocaleString('en-US');
+}
 
 @Component({
   selector: 'middle-nav-bar-page',
@@ -25,12 +30,16 @@ export class MiddleNavBarPageComponent {
     }
   }
 
+  public brackets = MANUAL_DATA.incomeTaxBrackets;
+  // The income from which the top rate applies, and the top rate itself
+  public topBracketStart = this.brackets.brackets[this.brackets.brackets.length - 2].upTo;
+  public topRate = this.brackets.brackets[this.brackets.brackets.length - 1].rate;
+
   public taxPercentagesData = [
     {
       mode: 'lines+markers',
       name: 'מסים ישירים',
-      x: ["עד 6,300", "מ6,300 עד 9,100", "מ6,300 עד 9,100", "מ9,100 עד 14,600", "מ9,100 עד 14,600", "מ14,600 עד 20,300", "מ14,600 עד 20,300", "מ20,300 עד 42,200", "מ20,300 עד 42,200", "מ42,200 עד 53,400", "מ42,200 עד 53,400", "53,400 ומעלה", "53,400 ומעלה"],
-      y: [10, 10, 14, 14, 20, 20, 31, 31, 35, 35, 47, 47, 50],
+      ...MiddleNavBarPageComponent.bracketsChart(this.brackets.brackets),
     },
     {
       mode: 'lines+markers',
@@ -39,4 +48,33 @@ export class MiddleNavBarPageComponent {
       y: [],
     }
   ];
+
+  // Builds a step chart: each bracket appears twice - once with the previous rate and once with its own
+  static bracketsChart(brackets: Array<{upTo: number, rate: number}>) {
+    const x = [];
+    const y = [];
+    let from = null;
+    for (const bracket of brackets) {
+      let label;
+      if (from === null) {
+        label = `עד ${formatNumber(bracket.upTo)}`;
+      } else if (bracket.upTo === null) {
+        label = `${formatNumber(from)} ומעלה`;
+      } else {
+        label = `מ${formatNumber(from)} עד ${formatNumber(bracket.upTo)}`;
+      }
+      if (from !== null) {
+        x.push(label);
+        y.push(y[y.length - 1]);
+      }
+      x.push(label);
+      y.push(bracket.rate);
+      from = bracket.upTo;
+    }
+    return { x, y };
+  }
+
+  formatNumber(value: number) {
+    return formatNumber(value);
+  }
 }
