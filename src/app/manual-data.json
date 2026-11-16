@@ -3,9 +3,9 @@
   "taxRates": {
     "delek": {
       "code": "0000180101",
-      "rate": 3.05585,
-      "year": 2020,
-      "source": "רשות המסים - שיעורי הבלו על דלקים"
+      "rate": 3.60433,
+      "year": 2026,
+      "source": "רשות המסים - בלו על בנזין, 3,604.33 ש\"ח לאלף ליטר נכון ל-1.1.2026: https://www.gov.il/BlobFolder/generalpage/heshavon31819/he/purchase-tax-excise_excise-rates-on-carbon-fuel-in-nis.pdf"
     },
     "maam": {
       "code": "0000140201",
@@ -15,19 +15,19 @@
     },
     "tabak": {
       "code": "00001501",
-      "rate": 1097.24,
-      "year": 2020,
-      "source": "רשות המסים - צו מס קנייה (טבק)"
+      "rate": 1406.52,
+      "year": 2026,
+      "source": "מס הקנייה המינימלי על טבק לגלגול (270% + 793.26 ש\"ח לק\"ג, ולא פחות מ-1,406.52 ש\"ח לק\"ג) לפי צו תעריף המכס והפטורים ומס קניה על טובין (תיקון מס' 5 והוראת שעה מס' 9), התשפ\"ד-2024, כפי שמצוטט בדוח התקופתי של גלוברנדס מ-26.3.2026: https://mayafiles.tase.co.il/rpdf/1731001-1732000/P1731687-00.pdf"
     }
   },
   "incomeTaxBrackets": {
-    "year": 2025,
-    "source": "רשות המסים - מדרגות מס הכנסה חודשיות על הכנסה מיגיעה אישית",
+    "year": 2026,
+    "source": "רשות המסים - לוח ניכויים לשנת 2026 (אחרי ריווח המדרגות בחוק ההתייעלות הכלכלית 2026), כולל מס יסף 3% מעל 60,130 ש\"ח: https://www.gov.il/BlobFolder/generalpage/income-tax-monthly-deductions-booklet/he/generalInformation_income-tax-monthly-deductions-booklet_monthly-deductions-booklet-2026.pdf",
     "brackets": [
       { "upTo": 7010, "rate": 10 },
       { "upTo": 10060, "rate": 14 },
-      { "upTo": 16150, "rate": 20 },
-      { "upTo": 22440, "rate": 31 },
+      { "upTo": 19000, "rate": 20 },
+      { "upTo": 25100, "rate": 31 },
       { "upTo": 46690, "rate": 35 },
       { "upTo": 60130, "rate": 47 },
       { "upTo": null, "rate": 50 }
